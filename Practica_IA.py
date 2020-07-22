@@ -1,6 +1,6 @@
 from tkinter import *
 import speech_recognition as sr
-import subprocess
+#import subprocess
 import easygui
 
 def clicked_dictar():
@@ -15,7 +15,10 @@ def clicked_dictar():
         # for testing purposes, we're just using the default API key
         # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
         # instead of `r.recognize_google(audio)`
-        print("You said: " + r.recognize_google(audio))
+        text = r.recognize_google(audio)
+        print("You said: " + text)
+        #se imprime en la caja de texto lo dictado
+        txtInput.insert(INSERT,text + " ")
 
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
@@ -55,9 +58,11 @@ btnDicInputText = Button(window, text="Dicta un texto", command=clicked_dictar)
 btnDicInputText.grid(column=2, row=3)
 
 
+global txtInput
 txtInput = Text(window)
 txtInput.config(width=90, height=10, font=("Consolas",10))
 txtInput.grid(column=3, row=4)
+
 
 window.mainloop()
 

@@ -33,30 +33,49 @@ def clicked_dictar():
 def TextInput():
     txtInput.configure(state="normal")
 
-#metodo para leer el texto de la caja de texto
-def leer_texto():
+#metodo para contar las palabras
+def contar_palabras():
+    #obtener el texto de la caja de texto
     global textoIngresado
     textoIngresado = txtInput.get('1.0', END).lower()
-    separar_palabras()
-
-#metodo para separar el texto en palabras
-def separar_palabras():
+    #separamos el texto en palabras
+    global palabras
     palabras = textoIngresado.replace('\n', ' ').split()
-    contar_palabras(palabras)
 
-#metodo para contar las palabras
-def contar_palabras(lista_palabras):
-    frecuenciaPalabras = []
-    for w in lista_palabras:
-        frecuenciaPalabras.append(lista_palabras.count(w))
     
-    print("Pares\n" + str(list(zip(lista_palabras, frecuenciaPalabras))))
+def contar_palabras_enlace():
+    enlace = ['y', 'además', 'también', 'asi mismo', 'también', 'igualmente',
+            'encima', 'es más', 'más aún', 'incluso', 'hasta', 'para colmo', 
+            'con todo', 'a pesar de todo', 'aun así', 'ahora bien', 'de cualquier modo', 'al mismo tiempo',
+            'pero', 'sin embargo', 'no obstante', 'en cierto modo', 'en cierta medida', 'hasta cierto punto', 'si bien',
+            'por otra parte', 'por el contrario', 'en cambio', 'por tanto', 'por consiguiente', 'de ahí que',
+            'en consecuencia', 'así pues', 'por lo tanto', 'por eso', 'por lo que sigue', 'por esta razón',
+            'entonces', 'de manera que', 'porque', 'pues', 'puesto que', 'del mismo modo', 'igualmente', 
+            'análogamente', 'de modo similar', 'es decir', 'o sea', 'esto es', 'en otras palabras',
+            'en resumen', 'en resumidas' 'cuentas', 'total', 'en una palabra', 'dicho de otro modo',
+            'en breve', 'en síntesis', 'por ejemplo', 'así', 'así como', 'particularmente',  'específicamente',
+            'para ilustrar', 'mejor dicho', 'bueno', 'en fin', 'por último', 'finalmente', 'para resumir',
+            'por otro lado', 'a continuación', 'acto seguido', 'después', 'por cierto', 'a propósito', 'a todo esto',
+            'después de', 'después que', 'después de que', 'luego', 'desde', 'desde que', 'desde entonces',
+            'a partir de', 'antes de', 'antes que', 'antes de que', 'hasta que', 'en cuanto', 'al principio',
+            'en el comienzo', 'inmediatamente', 'temporalmente', 'actualmente', 'cuando', 'en ese momento',
+            'la', 'que', 'los', 'más', 'este', 'lo', 'le', 'el', 'de', 'en', 'por', 'está', 'para', 'aqui', 'hemos',
+            'un', 'una', 'se']
+    global pal_enlace 
+    pal_enlace = []
+    cont=0
+    for x in enlace:
+        for y in palabras:
+            if x == y:
+                pal_enlace.append(x)
 
+   
     
 
 #metodo para generar el resumen del texto ingresado
 def resumen():
-    leer_texto()
+    contar_palabras()
+    contar_palabras_enlace()
 
     GenResumen1 = Entry(window)
     GenResumen2 = Entry(window)
@@ -66,13 +85,13 @@ def resumen():
     GenResumen2.grid(column=2, row=9)
     GenResumen3.grid(column=2, row=10)
     
-    GenResumen1.insert(INSERT,"palabras: ")
-    GenResumen2.insert(INSERT,"palabras enlace: ")
-    GenResumen3.insert(INSERT,"palabras clave: ")
+    GenResumen1.insert(INSERT,"palabras: " + str(len(palabras)))
+    GenResumen2.insert(INSERT,"palabras enlace: " + str(len(pal_enlace)))
+    GenResumen3.insert(INSERT,"palabras clave: " + str(len(palabras)-len(pal_enlace)))
     
-    GenResumen1.configure(state="disabled")
-    GenResumen2.configure(state="disabled")
-    GenResumen3.configure(state="disabled")
+    GenResumen1.configure(state="normal")
+    GenResumen2.configure(state="normal")
+    GenResumen3.configure(state="normal")
     
 
 def btnBuscar():
@@ -84,7 +103,23 @@ def nubePalabras():
     text = txtInput.get('1.0', END).lower()
     wordcloud = WordCloud(font_path='C:/Windows/Fonts/Verdana.ttf',
                             relative_scaling = 0.1,
-                            stopwords = {'que', 'y', 'en', 'el', 'por', 'las', 'a', 'la', 'de', 'lo', 'más', 'este'} # set or space-separated string
+                            stopwords = { 'y', 'además', 'también', 'asi mismo', 'también', 'igualmente',
+                            'encima', 'es más', 'más aún', 'incluso', 'hasta', 'para colmo', 
+                            'con todo', 'a pesar de todo', 'aun así', 'ahora bien', 'de cualquier modo', 'al mismo tiempo',
+                            'pero', 'sin embargo', 'no obstante', 'en cierto modo', 'en cierta medida', 'hasta cierto punto', 'si bien',
+                            'por otra parte', 'por el contrario', 'en cambio', 'por tanto', 'por consiguiente', 'de ahí que',
+                            'en consecuencia', 'así pues', 'por lo tanto', 'por eso', 'por lo que sigue', 'por esta razón',
+                            'entonces', 'de manera que', 'porque', 'pues', 'puesto que', 'del mismo modo', 'igualmente', 
+                            'análogamente', 'de modo similar', 'es decir', 'o sea', 'esto es', 'en otras palabras',
+                            'en resumen', 'en resumidas' 'cuentas', 'total', 'en una palabra', 'dicho de otro modo',
+                            'en breve', 'en síntesis', 'por ejemplo', 'así', 'así como', 'particularmente',  'específicamente',
+                            'para ilustrar', 'mejor dicho', 'bueno', 'en fin', 'por último', 'finalmente', 'para resumir',
+                            'por otro lado', 'a continuación', 'acto seguido', 'después', 'por cierto', 'a propósito', 'a todo esto',
+                            'después de', 'después que', 'después de que', 'luego', 'desde', 'desde que', 'desde entonces',
+                            'a partir de', 'antes de', 'antes que', 'antes de que', 'hasta que', 'en cuanto', 'al principio',
+                            'en el comienzo', 'inmediatamente', 'temporalmente', 'actualmente', 'cuando', 'en ese momento',
+                            'la', 'que', 'los', 'más', 'este', 'lo', 'le', 'el', 'de', 'en', 'por', 'está', 'para', 'aqui', 'hemos',
+                            'un', 'una', 'se'}
                             ).generate(text)
     plt.imshow(wordcloud)
     plt.axis("off")

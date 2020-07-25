@@ -44,6 +44,7 @@ def contar_palabras():
 
     
 def contar_palabras_enlace():
+    global enlace
     enlace = ['y', 'además', 'también', 'asi mismo', 'también', 'igualmente',
             'encima', 'es más', 'más aún', 'incluso', 'hasta', 'para colmo', 
             'con todo', 'a pesar de todo', 'aun así', 'ahora bien', 'de cualquier modo', 'al mismo tiempo',
@@ -103,23 +104,7 @@ def nubePalabras():
     text = txtInput.get('1.0', END).lower()
     wordcloud = WordCloud(font_path='C:/Windows/Fonts/Verdana.ttf',
                             relative_scaling = 0.1,
-                            stopwords = { 'y', 'además', 'también', 'asi mismo', 'también', 'igualmente',
-                            'encima', 'es más', 'más aún', 'incluso', 'hasta', 'para colmo', 
-                            'con todo', 'a pesar de todo', 'aun así', 'ahora bien', 'de cualquier modo', 'al mismo tiempo',
-                            'pero', 'sin embargo', 'no obstante', 'en cierto modo', 'en cierta medida', 'hasta cierto punto', 'si bien',
-                            'por otra parte', 'por el contrario', 'en cambio', 'por tanto', 'por consiguiente', 'de ahí que',
-                            'en consecuencia', 'así pues', 'por lo tanto', 'por eso', 'por lo que sigue', 'por esta razón',
-                            'entonces', 'de manera que', 'porque', 'pues', 'puesto que', 'del mismo modo', 'igualmente', 
-                            'análogamente', 'de modo similar', 'es decir', 'o sea', 'esto es', 'en otras palabras',
-                            'en resumen', 'en resumidas' 'cuentas', 'total', 'en una palabra', 'dicho de otro modo',
-                            'en breve', 'en síntesis', 'por ejemplo', 'así', 'así como', 'particularmente',  'específicamente',
-                            'para ilustrar', 'mejor dicho', 'bueno', 'en fin', 'por último', 'finalmente', 'para resumir',
-                            'por otro lado', 'a continuación', 'acto seguido', 'después', 'por cierto', 'a propósito', 'a todo esto',
-                            'después de', 'después que', 'después de que', 'luego', 'desde', 'desde que', 'desde entonces',
-                            'a partir de', 'antes de', 'antes que', 'antes de que', 'hasta que', 'en cuanto', 'al principio',
-                            'en el comienzo', 'inmediatamente', 'temporalmente', 'actualmente', 'cuando', 'en ese momento',
-                            'la', 'que', 'los', 'más', 'este', 'lo', 'le', 'el', 'de', 'en', 'por', 'está', 'para', 'aqui', 'hemos',
-                            'un', 'una', 'se'}
+                            stopwords = enlace
                             ).generate(text)
     plt.imshow(wordcloud)
     plt.axis("off")
